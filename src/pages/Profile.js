@@ -9,12 +9,14 @@ const Profile = () => {
     const [purchases, setPurchases] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
+
     const fetchHistory = async () => {
         setLoading(true);
         try {
             const [salesRes, purchasesRes] = await Promise.all([
-                fetch(`http://localhost:5001/my-sales/${currentUser.uid}`),
-                fetch(`http://localhost:5001/my-purchases/${currentUser.uid}`)
+                fetch(`${API_URL}/my-sales/${currentUser.uid}`),
+                fetch(`${API_URL}/my-purchases/${currentUser.uid}`)
             ]);
 
             if (salesRes.ok && purchasesRes.ok) {
@@ -40,7 +42,7 @@ const Profile = () => {
         if (!window.confirm("Are you sure you want to delete this listing?")) return;
 
         try {
-            const response = await fetch("http://localhost:5001/delete-coupon", {
+            const response = await fetch(`${API_URL}/delete-coupon`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ couponId, userId: currentUser.uid })

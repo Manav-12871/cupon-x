@@ -34,8 +34,10 @@ const SellCoupons = () => {
     setIsSubmitting(true);
     setSuccessMessage(''); // Clear previous messages
 
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
+
     try {
-      const response = await fetch("http://localhost:5001/add-coupon", {
+      const response = await fetch(`${API_URL}/add-coupon`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -15,10 +15,12 @@ const BuyCoupons = () => {
     const timer = setTimeout(() => setPageLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
+
   const fetchCoupons = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5001/coupons");
+      const response = await fetch(`${API_URL}/coupons`);
       const data = await response.json();
 
       // Sort: Available coupons first, then Sold coupons
@@ -47,7 +49,7 @@ const BuyCoupons = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5001/buy-coupon", {
+      const response = await fetch(`${API_URL}/buy-coupon`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

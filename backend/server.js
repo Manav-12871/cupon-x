@@ -11,8 +11,16 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(cors());
 
-// Initialize Firebase Admin SDK using the local service account file
-const serviceAccount = require(path.join(__dirname, "firebase-config.json"));
+// Initialize Firebase Admin SDK
+let serviceAccount;
+
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  // Production / Cloud: Parse the service account from environment variable
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+} else {
+  // Local Development: Use the local file
+  serviceAccount = require(path.join(__dirname, "firebase-config.json"));
+}
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
