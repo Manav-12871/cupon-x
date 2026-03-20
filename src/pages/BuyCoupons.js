@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Row, Col, Card, Button, Form, Spinner } from 'react-bootstrap';
 import ThreeDBackground from '../components/ThreeDBackground';
 import { useAuth } from '../AuthContext';
@@ -17,7 +17,7 @@ const BuyCoupons = () => {
   }, []);
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 
-  const fetchCoupons = async () => {
+  const fetchCoupons = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch(`${API_URL}/coupons`);
@@ -36,11 +36,11 @@ const BuyCoupons = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_URL]);
 
   useEffect(() => {
     fetchCoupons();
-  }, []);
+  }, [fetchCoupons]);
 
   const handleBuy = async (couponId, sellerId) => {
     if (currentUser.uid === sellerId) {

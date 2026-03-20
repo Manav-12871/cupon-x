@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Row, Col, Card, Spinner, Badge, Button } from 'react-bootstrap';
 import ThreeDBackground from '../components/ThreeDBackground';
 import { useAuth } from '../AuthContext';
@@ -11,7 +11,7 @@ const Profile = () => {
 
     const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5001";
 
-    const fetchHistory = async () => {
+    const fetchHistory = useCallback(async () => {
         setLoading(true);
         try {
             const [salesRes, purchasesRes] = await Promise.all([
@@ -30,13 +30,13 @@ const Profile = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [API_URL, currentUser]);
 
     useEffect(() => {
         if (currentUser) {
             fetchHistory();
         }
-    }, [currentUser]);
+    }, [currentUser, fetchHistory]);
 
     const handleDelete = async (couponId) => {
         if (!window.confirm("Are you sure you want to delete this listing?")) return;

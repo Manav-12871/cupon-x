@@ -35,8 +35,8 @@ const ThreeDBackground = () => {
         const y = (Math.random() - 0.5) * 15;
         const z = (Math.random() - 0.5) * 15;
         positions.set([x, y, z], i * 3);
-        
-        const colorPalette = ['#C0C0C0', '#A9A9A9', '#ffffff', '#00ffff']; 
+
+        const colorPalette = ['#C0C0C0', '#A9A9A9', '#ffffff', '#00ffff'];
         color.set(colorPalette[Math.floor(Math.random() * colorPalette.length)]);
         colors.set([color.r, color.g, color.b], i * 3);
       }
@@ -45,7 +45,7 @@ const ThreeDBackground = () => {
       particleGeometry.setAttribute('color', new window.THREE.BufferAttribute(colors, 3));
 
       const particleMaterial = new window.THREE.PointsMaterial({
-        size: 0.035, 
+        size: 0.035,
         vertexColors: true,
         transparent: true,
         blending: window.THREE.AdditiveBlending,
@@ -58,7 +58,7 @@ const ThreeDBackground = () => {
       const clock = new window.THREE.Clock();
       const animate = () => {
         const elapsedTime = clock.getElapsedTime();
-        
+
         particles.rotation.y = elapsedTime * 0.05;
         particles.position.y = Math.sin(elapsedTime * 0.2) * 0.1;
 
@@ -89,12 +89,13 @@ const ThreeDBackground = () => {
       document.head.appendChild(script);
     }
 
+    const currentMount = mountRef.current;
     return () => {
       window.cancelAnimationFrame(frameId);
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', onMouseMove);
-      if (mountRef.current && renderer) {
-        mountRef.current.removeChild(renderer.domElement);
+      if (currentMount && renderer) {
+        currentMount.removeChild(renderer.domElement);
       }
     };
   }, []);

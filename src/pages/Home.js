@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Button, Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ThreeDBackground from '../components/ThreeDBackground';
@@ -78,7 +78,7 @@ const Home = () => {
   return (
     <>
       <ThreeDBackground />
-      <div style={{...pageAnimationStyle, position: 'relative', zIndex: 1}}>
+      <div style={{ ...pageAnimationStyle, position: 'relative', zIndex: 1 }}>
         <style type="text/css">
           {`
           /* --- FONT STYLES --- */
@@ -202,8 +202,8 @@ const Home = () => {
           }
           `}
         </style>
-        
-        <Container ref={heroRef} style={{...animationStyle(heroIsVisible), ...heroStyle}}>
+
+        <Container ref={heroRef} style={{ ...animationStyle(heroIsVisible), ...heroStyle }}>
           <div style={{ position: 'relative', zIndex: 1, textShadow: '0px 2px 10px rgba(0,0,0,0.5)' }}>
             <h1 className="display-2 fw-bold" style={animationStyle(heroIsVisible, 0.2)}>
               The Ultimate Coupon Marketplace
@@ -248,9 +248,9 @@ const Home = () => {
             </Row>
           </div>
         </Container>
-        
+
         <Container ref={popularDealsRef} style={animationStyle(popularDealsIsVisible)} className="my-5">
-           <div className="section-container">
+          <div className="section-container">
             <h2 className="text-center mb-5 fw-bold section-header">Popular Deals</h2>
             <Row>
               {dummyCoupons.map((coupon, index) => (
@@ -274,7 +274,7 @@ const Home = () => {
             </Row>
           </div>
         </Container>
-        
+
         <button className="luffy-chat-btn" onClick={() => setIsChatboxOpen(true)}>
           <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
